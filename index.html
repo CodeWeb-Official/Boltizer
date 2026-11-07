@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b2417">
+<title>Boltizer — Find icons, easily.</title>
+<link rel="icon" id="favicon" type="image/svg+xml">
+<script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+<style>
+:root{color-scheme:dark;--bg:#08150e;--panel:#10251a;--panel2:#173725;--line:#2c6241;--green:#43e58d;--mint:#c6ffdc;--muted:#9bb9a5}
+*{box-sizing:border-box}html{min-height:100%}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 12% -12%,#1c6740 0,transparent 39%),linear-gradient(135deg,#06120c,#10271a 58%,#07130d);color:#f0fff4;font:15px/1.45 Inter,system-ui,Segoe UI,Arial,sans-serif;cursor:none}
+button,input{font:inherit}button{cursor:none;color:inherit}
+#cursor{position:fixed;z-index:9999;pointer-events:none;width:23px;height:23px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff 0,#e9fff0 23%,#222 50%,#000 73%);box-shadow:0 0 0 2px #effff4,0 0 19px 7px #399cff;transform:translate(-50%,-50%);mix-blend-mode:screen}
+header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:17px clamp(16px,4vw,48px);background:#07140ddd;border-bottom:1px solid #ffffff19;backdrop-filter:blur(15px)}
+.brand{display:flex;align-items:center;gap:11px;font-size:22px;font-weight:850;letter-spacing:-.7px}.brand img{width:39px;height:39px}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.2px}.spacer{flex:1}.status{font-size:12px;color:var(--mint)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1600px;margin:auto;min-height:calc(100vh - 74px)}
+aside{padding:22px 15px;border-right:1px solid #ffffff16}.navtitle{font-size:10px;letter-spacing:1.6px;color:#87aa94;font-weight:800;margin:7px 10px 12px}
+.nav{width:100%;display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid transparent;border-radius:11px;background:transparent;text-align:left;color:#c8dfcf;margin:3px 0;font-size:13px;font-weight:650}.nav:hover,.nav.active{background:linear-gradient(100deg,#1b5c39,#123823);border-color:#4c9b68;color:#fff}.nav .ni{width:19px;text-align:center;color:#8af0ad;font-size:16px}
+main{padding:clamp(20px,4vw,46px);min-width:0}.hero h1{font-size:clamp(29px,4vw,43px);line-height:1.08;letter-spacing:-1.6px;margin:0}.hero h1 span{color:var(--green)}.hero p{color:var(--muted);margin:10px 0 24px}
+.searchrow{display:flex;gap:9px;max-width:850px}.searchbox{display:flex;align-items:center;gap:10px;flex:1;background:#0b1d13;border:1px solid #386849;border-radius:13px;padding:0 14px}.searchbox:focus-within{border-color:#69f3a3;box-shadow:0 0 0 3px #4be88b20}.searchbox input{width:100%;min-width:0;background:none;border:0;outline:0;color:#fff;padding:14px 0}.action{border:1px solid #4c9867;border-radius:12px;background:linear-gradient(135deg,#207a49,#12482d);padding:0 15px;font-weight:750;white-space:nowrap}.action:hover{filter:brightness(1.15)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:24px 0 14px}.subtle{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:11px}.tile{min-height:119px;border:1px solid #ffffff18;border-radius:14px;background:linear-gradient(145deg,#142e20,#0c1d13);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:12px 8px;transition:.16s}.tile:hover{transform:translateY(-3px);border-color:#5ce995;background:#1a3d29;box-shadow:0 9px 25px #0005}.glyph{display:grid;place-items:center;height:38px;color:#e6fff0}.glyph iconify-icon{font-size:34px}.iname{font-size:11px;color:#bdd6c5;text-align:center;overflow-wrap:anywhere}.empty{padding:45px 15px;text-align:center;color:var(--muted);grid-column:1/-1}
+.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin:24px}.pagination button,.secondary{border:1px solid #315940;border-radius:10px;background:#12291b;padding:9px 14px}.pagination button:disabled{opacity:.35;cursor:not-allowed}
+.modalback{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:30;padding:18px}.modalback.show{display:flex}.modal{width:min(420px,100%);background:#10271a;border:1px solid #4b9664;border-radius:18px;padding:21px;box-shadow:0 25px 90px #000b}.modalhead{display:flex;align-items:center;justify-content:space-between}.modal h2{font-size:19px;margin:0}.close{background:#23432e;border:0;border-radius:9px;width:34px;height:34px;font-size:19px}.preview{display:grid;place-items:center;height:115px;color:#dcffe6}.preview iconify-icon{font-size:66px}.modalactions{display:grid;gap:9px;margin-top:14px}.modalactions button{padding:12px;border:1px solid #43865c;border-radius:10px;background:#19472e;text-align:left}.modalactions button:hover{background:#23633e}
+.toast{position:fixed;right:19px;bottom:18px;background:#153d28;border:1px solid #58b879;border-radius:12px;padding:12px 16px;z-index:50;display:none;max-width:320px}
+.promo{position:fixed;right:20px;bottom:20px;width:min(330px,calc(100vw - 32px));z-index:25;background:#f3fff6;color:#14251a;border-radius:16px;box-shadow:0 15px 55px #0009;overflow:hidden;display:none}.promo.show{display:block;animation:pop .25s ease-out}@keyframes pop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}.promo img{width:100%;height:132px;object-fit:cover;background:#dceee1}.promotext{padding:14px 16px 17px;font-weight:750}.promo .x{position:absolute;right:9px;top:9px;border:0;background:#10251acc;color:white;border-radius:50%;width:29px;height:29px;font-size:18px}
+footer{margin-top:42px;padding-top:17px;border-top:1px solid #ffffff15;color:#789583;font-size:12px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid #ffffff16;padding:9px;display:flex;gap:5px;overflow-x:auto}.navtitle{display:none}.nav{white-space:nowrap;width:auto;padding:10px}.nav .ni{display:none}main{padding:22px 14px}.status{display:none}.searchrow{flex-wrap:wrap}.searchbox{flex-basis:100%}.action{min-height:42px}}
+@media(pointer:coarse){body,button{cursor:auto}#cursor{display:none}}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<header><div class="brand"><img id="logo" alt="Boltizer"><div>Boltizer<small>Find icons, easily.</small></div></div><div class="spacer"></div><div class="status">✦ Your icon workspace</div></header>
+<div class="layout">
+<aside><div class="navtitle">EXPLORE</div><div id="nav"></div></aside>
+<main>
+<section class="hero"><h1>Find the <span>perfect icon.</span></h1><p>Explore icon libraries, discover daily picks, and keep track of the icons you copy.</p></section>
+<div class="searchrow"><div class="searchbox"><span>⌕</span><input id="search" type="search" placeholder="Search icons by name…" autocomplete="off"></div><button class="action" id="random">⤨ Search random</button></div>
+<div class="toolbar"><strong id="sectionTitle">Lucide Icons</strong><span class="subtle" id="count">Loading icon catalog…</span></div>
+<div class="grid" id="grid"></div>
+<div class="pagination"><button id="prev">← Previous</button><span class="subtle" id="pageLabel">Page 1</span><button id="next">Next →</button></div>
+<footer>Official icon artwork is loaded from Iconify's icon collections. Boltizer is an independent icon explorer and is not affiliated with the icon-library projects.</footer>
+</main></div>
+<div class="modalback" id="modalBack"><div class="modal"><div class="modalhead"><h2 id="modalTitle">Icon actions</h2><button class="close" id="modalClose" aria-label="Close">×</button></div><div class="preview" id="preview"></div><div class="modalactions"><button id="copyText">Copy text</button><button id="copyIcon">Copy icon</button><button id="downloadIcon">Download icon as SVG</button></div></div></div>
+<div class="toast" id="toast" role="status"></div>
+<div class="promo" id="promo"><button class="x" id="promoClose" aria-label="Close popup">×</button><img id="promoImage" alt=""><div class="promotext" id="promoText"></div></div>
+<script>
+const LOGO=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b7ffd4"/><stop offset=".5" stop-color="#39df83"/><stop offset="1" stop-color="#08713c"/></linearGradient></defs><rect x="3" y="3" width="58" height="58" rx="18" fill="#102c1c" stroke="#69f3a3" stroke-width="2"/><path d="M38 8 17 35h14l-5 21 22-30H34z" fill="url(#g)" stroke="#eafff1" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+const logoURL="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(LOGO);
+document.getElementById("logo").src=logoURL;document.getElementById("favicon").href=logoURL;
+const POPUPS=["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAD0klEQVR4AdRYTUgbQRR+rrl5VUFB25MVclPIWXsr6MWDBy9FC4GCoMVCPAi9CNo2hxxFe2kgXvoXCIUWpT8U22IxIBWRCKUkEIqpvXkxf51vYEN+dmZnd7PJJuTtvrw37833ze68t1mNTD4TExO+wcHBpwMDAzkmZUXJsZgNxJqkd+w2JZBKpdbL5fJDNlMvE9VvL4tZRaxqgN1xGlYJq8VW1nCFGZAQku9thCm7+1JJ4o/WEUKIZXlVr5qVcZUrrGGV2ESrbEbpCvtv3GRD1L6BW6NqA+2PqlxhjYG/hzyJRIKy2WyDwOdEjHI6sWUyGYpGoxwSsGMP8JUfHx/nRi8fisUi5XI5Gh2tXOFeEPAy5go2HXyhUKjYoKgT+PyNyIoge5NEBB7p1QlgdBtEBh5wPE3ADLynCaiA9ywBVfBtITA9PU2s80tlaGiIxsbGKBAIcFlYWABWQ2n5Huju7jYEIjPKYmwTuMrn6faL53TndYygywBU++LxeEO3R2dGh00mk3R4eNggOzs71SlqdFsECuUS3X33hs7+/aXj3B+uw1aT2cIPK/d8fVpbBB58ek9fsxnq7+/nAh22+uQqv52AR37LBJ78OKBXqVPq6emhWCzGBTps8CGpqjgFj3ksEYieHlMk+Z18Ph9tb2+T3+/nAh02+HbPfiKvqTQDPCZRJrCf/kVrBx8QQ5ubmzQ5Ocl1HKDDBn31yz59zPyGKpRmgccEygTu77+lQqlEKysrNDc3h9gagW1paYmPCe4lanzVP9AH6uu8Xu9FZ0d9oK+vj89/lb+m2dlZToAbDA6hUIhmZmZYWb3mXvZ3kp/1A1a+/nFY98nOjvrA8vIy37BY4XA4LJuH+yKRCCeKjb24uMhtOAA8/oygphvVepkNMchhJKa30Pz8PJ2fnxPAY6MaJam2YQxIIAax8Ong7aw+4mViSkAWrOJzEzzmd5WA2+BdJdAK8K4RaBV4KQHUa7PndpHfap0X1X/dbqsPyGovmLdSZFiEmzgueG7Hs7uRyJ7nZTVexeeoD6isNOr7xcUF4awyvpljhFdAdRKARofFxlWNaeY4RwTaDR4LYZuAF8DbJuAV8FICsj4wPDxMeB2v12k3z8FgEDiFIryFZLVXmM0Fh6YJIfLZhN76PpBOp+no6KjhnY1KHXcyZmtriwMVHYQEqgO8dM9X44JuSsDL4E0JeB28lIAj8MjcIjG8hToFPNaogUAngdcJXELBq+1OAX9ycgLIkEutq6vrGbSpqSlqZYd10r31f2jAro2MjKwx5TEjwa8EO3fC9xKYgf0/AAAA///H+G5hAAAABklEQVQDAHQIo1S1AHfaAAAAAElFTkSuQmCC","data:image/png;base64,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"];
+const LIBS=[
+{id:"lucide",label:"Lucide Icons",prefix:"lucide",mark:"✧"},
+{id:"iconoir",label:"Iconoir Icons",prefix:"iconoir",mark:"◈"},
+{id:"tabler",label:"Tabler Icons",prefix:"tabler",mark:"▦"},
+{id:"phosphor",label:"Phosphor Icons",prefix:"ph",mark:"✳"},
+{id:"streamline",label:"Streamline",prefix:"streamline",mark:"⌘",curated:true},
+{id:"remix",label:"Remix Icon Icons",prefix:"ri",mark:"◉"},
+{id:"fontawesome",label:"Font Awesome",prefix:"fa6-solid",mark:"⚑"},
+{id:"bootstrap",label:"Bootstrap Icons",prefix:"bi",mark:"Ⓑ"},
+{id:"daily",label:"Top 100 daily icon selects",prefix:"",mark:"✦"},
+{id:"recent",label:"Recently copied",prefix:"",mark:"◷"}
+];
+const $=id=>document.getElementById(id);
+let active="lucide",page=1,selected=null,allNames=[],catalogCache={},toastTimer,promoTimer;
+const PAGE_SIZE=72;
+const STREAMLINE_SUBSET=["home-2","search","settings","star","heart","user-circle","users","mail","phone","camera","calendar","clock","lock","shield-check","check","plus","minus","menu","arrow-right","arrow-left","download","upload","cloud","folder","file","edit","trash","copy","share","link","globe","chat","send","bell","bookmark","filter","refresh","eye","play","pause","volume-high","image","code","terminal","bug","lightbulb","rocket","bolt","leaf","sun","moon","shopping-cart","map-pin","book","coffee","car","plane","gamepad","smile","alert-circle","info-circle","help-circle"];
+function renderNav(){const nav=$("nav");nav.innerHTML="";LIBS.forEach(l=>{const b=document.createElement("button");b.className="nav"+(active===l.id?" active":"");b.innerHTML=`<span class="ni">${l.mark}</span><span>${l.label}</span>`;b.onclick=()=>switchSection(l.id);nav.append(b)})}
+async function getCatalog(lib){
+ if(catalogCache[lib.id])return catalogCache[lib.id];
+ if(lib.id==="recent"){return getRecent().map(x=>x.name)}
+ if(lib.id==="daily"){const base=await getCatalog(LIBS[0]);return dailyNames(base).slice(0,100)}
+ let names=[];
+ if(lib.curated){names=STREAMLINE_SUBSET.slice()}
+ else{
+  const response=await fetch(`https://api.iconify.design/collection?prefix=${encodeURIComponent(lib.prefix)}`);
+  if(!response.ok)throw new Error("Catalog request failed");
+  const data=await response.json();
+  names=Array.isArray(data.uncategorized)?data.uncategorized:[];
+  if(data.categories)Object.values(data.categories).forEach(a=>names.push(...a));
+  names=[...new Set(names)].sort();
+ }
+ catalogCache[lib.id]=names;return names;
+}
+function dailyNames(names){
+ const day=new Date().toISOString().slice(0,10);
+ let seed=0;for(const c of day)seed=(seed*31+c.charCodeAt(0))>>>0;
+ const arr=[...new Set(names)];for(let i=arr.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0;const j=seed%(i+1);[arr[i],arr[j]]=[arr[j],arr[i]]}
+ return arr.slice(0,100);
+}
+function getRecent(){try{return JSON.parse(localStorage.getItem("boltizer-recent")||"[]")}catch{return []}}
+function saveRecent(icon){let a=getRecent().filter(x=>x.key!==icon.key);a.unshift(icon);a=a.slice(0,100);localStorage.setItem("boltizer-recent",JSON.stringify(a))}
+function iconKey(lib,name){return `${lib.prefix}:${name}`}
+function getIconURL(lib,name){return `https://api.iconify.design/${encodeURIComponent(lib.prefix)}/${encodeURIComponent(name)}.svg`}
+async function loadSVG(lib,name){const r=await fetch(getIconURL(lib,name));if(!r.ok)throw new Error("Could not load SVG");return await r.text()}
+function makeTile(lib,name){
+ const tile=document.createElement("button");tile.className="tile";tile.type="button";tile.innerHTML=`<span class="glyph"><iconify-icon icon="${lib.prefix}:${name}" aria-hidden="true"></iconify-icon></span><span class="iname"></span>`;tile.querySelector(".iname").textContent=name.replace(/[-_]/g," ");tile.onclick=()=>openIcon(lib,name);return tile;
+}
+async function render(){
+ const grid=$("grid"),lib=LIBS.find(x=>x.id===active);$("sectionTitle").textContent=lib.label;grid.innerHTML="";$("count").textContent="Loading…";
+ try{
+  let names=await getCatalog(lib);
+  if(active==="recent"){const recent=getRecent();names=recent.map(x=>x.name);catalogCache.recent=names}
+  const q=$("search").value.trim().toLowerCase();if(q)names=names.filter(n=>n.toLowerCase().includes(q));
+  const total=names.length;const pages=Math.max(1,Math.ceil(total/PAGE_SIZE));page=Math.min(page,pages);
+  const slice=names.slice((page-1)*PAGE_SIZE,page*PAGE_SIZE);
+  $("count").textContent=`${total.toLocaleString()} icons${active==="streamline"?" · curated subset":""}`;
+  $("pageLabel").textContent=`Page ${page} of ${pages}`;$("prev").disabled=page<=1;$("next").disabled=page>=pages;
+  if(!slice.length){grid.innerHTML='<div class="empty">No icons found. Try another search.</div>';return}
+  const frag=document.createDocumentFragment();
+  slice.forEach(name=>{
+   if(active==="recent"){const item=getRecent().find(x=>x.name===name);const source=LIBS.find(x=>x.id===item?.libraryId)||LIBS[0];frag.append(makeTile(source,name))}
+   else if(active==="daily"){frag.append(makeTile(LIBS[0],name))}
+   else frag.append(makeTile(lib,name));
+  });
+  grid.append(frag);
+ }catch(e){$("count").textContent="Could not load catalog";grid.innerHTML='<div class="empty">The icon catalog could not load. Check your internet connection and reload this page.</div>'}
+}
+function switchSection(id){active=id;page=1;$("search").value="";renderNav();render()}
+function showToast(text){const t=$("toast");t.textContent=text;t.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display="none",2300)}
+async function openIcon(lib,name){selected={libraryId:lib.id,prefix:lib.prefix,name,key:iconKey(lib,name)};$("modalTitle").textContent=name;$("preview").innerHTML=`<iconify-icon icon="${lib.prefix}:${name}"></iconify-icon>`;$("modalBack").classList.add("show")}
+function closeModal(){$("modalBack").classList.remove("show")}
+async function copyText(){if(!selected)return;try{await navigator.clipboard.writeText(selected.name);saveRecent(selected);showToast("Icon name copied · saved to Recent")}catch{showToast("Clipboard permission was blocked")}}
+async function copyIcon(){if(!selected)return;try{const lib=LIBS.find(x=>x.id===selected.libraryId)||{prefix:selected.prefix};const svg=await loadSVG(lib,selected.name);await navigator.clipboard.write([new ClipboardItem({"image/svg+xml":new Blob([svg],{type:"image/svg+xml"})})]);saveRecent(selected);showToast("SVG copied · saved to Recent")}catch(e){try{const lib=LIBS.find(x=>x.id===selected.libraryId)||{prefix:selected.prefix};const svg=await loadSVG(lib,selected.name);await navigator.clipboard.writeText(svg);saveRecent(selected);showToast("SVG source copied · saved to Recent")}catch{showToast("Could not copy icon; clipboard access may be unavailable")}}}
+async function downloadIcon(){if(!selected)return;try{const lib=LIBS.find(x=>x.id===selected.libraryId)||{prefix:selected.prefix};const svg=await loadSVG(lib,selected.name);const url=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"}));const a=document.createElement("a");a.href=url;a.download=`${selected.name}.svg`;a.click();URL.revokeObjectURL(url);saveRecent(selected);showToast("SVG downloaded · saved to Recent")}catch{showToast("Could not download this SVG")}}
+$("search").addEventListener("input",()=>{page=1;render()});$("prev").onclick=()=>{page=Math.max(1,page-1);render()};$("next").onclick=()=>{page++;render()};$("random").onclick=async()=>{try{const lib=LIBS.find(x=>x.id===active);const names=await getCatalog(lib);const n=names[Math.floor(Math.random()*names.length)];if(n){$("search").value=n;page=1;render()}}catch{showToast("Load the icon catalog first")}};
+$("modalClose").onclick=closeModal;$("modalBack").addEventListener("click",e=>{if(e.target===$("modalBack"))closeModal()});$("copyText").onclick=copyText;$("copyIcon").onclick=copyIcon;$("downloadIcon").onclick=downloadIcon;
+let promoIndex=0,promoVisible=false;
+function showPromo(){if(promoVisible)return;const messages=["Don't forget to bookmark this page by clicking the star in the omnibar.","Support our site on GitHub; forking this site means a lot to us!"];const images=POPUPS;const idx=promoIndex%2;$("promoImage").src=images[idx]||"";$("promoText").textContent=messages[idx];$("promo").classList.add("show");promoVisible=true;promoIndex++;promoTimer=setTimeout(hidePromo,10000)}
+function hidePromo(){clearTimeout(promoTimer);$("promo").classList.remove("show");promoVisible=false}
+$("promoClose").onclick=hidePromo;
+setInterval(showPromo,5*60*1000);
+document.addEventListener("mousemove",e=>{$("cursor").style.left=e.clientX+"px";$("cursor").style.top=e.clientY+"px"});
+renderNav();render();
+</script>
+</body></html>
